@@ -52,7 +52,7 @@ git add -A
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 git commit -m "Deploy: $timestamp" --allow-empty
 $token = "7fa52340044419fd2dbabf8e841be729"
-git push "https://zzwar2009:$token@gitee.com/zzwar2009/my-blog.git" pages --force
+git push "https://zzwar:$token@gitee.com/zzwar/my-blog.git" pages --force
 
 Write-Host "===== 6. Cleanup =====" -ForegroundColor Cyan
 Remove-Item -Recurse -Force $tmpDir -ErrorAction SilentlyContinue
@@ -61,6 +61,6 @@ git checkout $currentBranch
 Write-Host ""
 Write-Host "===================================" -ForegroundColor Green
 Write-Host "  Deploy done!" -ForegroundColor Green
-Write-Host "  Go to: https://gitee.com/zzwar2009/my-blog/pages" -ForegroundColor Yellow
-Write-Host "  Live at: https://zzwar2009.gitee.io/my-blog" -ForegroundColor Cyan
+Write-Host "  Go to: https://gitee.com/zzwar/my-blog/pages" -ForegroundColor Yellow
+Write-Host "  Live at: https://zzwar.gitee.io/my-blog" -ForegroundColor Cyan
 Write-Host "===================================" -ForegroundColor Green
