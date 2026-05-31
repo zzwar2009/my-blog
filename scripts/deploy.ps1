@@ -37,6 +37,16 @@ Get-ChildItem -Force -ErrorAction SilentlyContinue | Where-Object {
 Copy-Item -Recurse "$tmpDir\*" . -Force
 New-Item -ItemType File -Name ".nojekyll" -Force | Out-Null
 
+# Remove leftover source dirs that should NOT be on pages branch
+Remove-Item -Recurse -Force node_modules -ErrorAction SilentlyContinue
+Remove-Item -Recurse -Force .pages-tmp -ErrorAction SilentlyContinue
+Remove-Item -Recurse -Force scripts -ErrorAction SilentlyContinue
+Remove-Item -Recurse -Force docs -ErrorAction SilentlyContinue
+Remove-Item -Force .gitignore -ErrorAction SilentlyContinue
+Remove-Item -Force package.json -ErrorAction SilentlyContinue
+Remove-Item -Force package-lock.json -ErrorAction SilentlyContinue
+Remove-Item -Force README.md -ErrorAction SilentlyContinue
+
 Write-Host "===== 5. Commit and push =====" -ForegroundColor Cyan
 git add -A
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
