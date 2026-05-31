@@ -1,5 +1,6 @@
-# Gitee Pages deploy script
+# Manual deploy script (backup - GitHub Actions handles auto-deploy)
 # Run from project root: npm run deploy
+# Note: Push to GitHub master triggers automatic deploy via Actions
 
 $ErrorActionPreference = "Stop"
 
@@ -11,7 +12,7 @@ Write-Host "===== 2. Build =====" -ForegroundColor Cyan
 npm run build
 if ($LASTEXITCODE -ne 0) { throw "Build failed" }
 
-Write-Host "===== 3. Prepare pages branch =====" -ForegroundColor Cyan
+Write-Host "===== 3. Deploy to gh-pages =====" -ForegroundColor Cyan
 $distDir = "docs\.vitepress\dist"
 $tmpDir = ".pages-tmp"
 
@@ -20,16 +21,16 @@ Copy-Item -Recurse $distDir $tmpDir
 
 $currentBranch = git rev-parse --abbrev-ref HEAD
 
-$pagesExists = git show-ref --verify --quiet refs/heads/pages 2>$null
+# Switch to or create gh-pages branch
+$pagesExists = git show-ref --verify --quiet refs/heads/gh-pages 2>$null
 if ($LASTEXITCODE -ne 0) {
-    Write-Host "  Creating pages branch..." -ForegroundColor Yellow
-    git checkout --orphan pages
+    Write-Host "  Creating gh-pages branch..." -ForegroundColor Yellow
+    git checkout --orphan gh-pages
 } else {
-    git checkout pages
+    git checkout gh-pages
 }
 git rm -rf --cached --quiet .
 
-Write-Host "===== 4. Deploy files =====" -ForegroundColor Cyan
 Get-ChildItem -Force -ErrorAction SilentlyContinue | Where-Object { 
     $_.Name -notin @('.git', 'node_modules', '.pages-tmp')
 } | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
@@ -37,7 +38,6 @@ Get-ChildItem -Force -ErrorAction SilentlyContinue | Where-Object {
 Copy-Item -Recurse "$tmpDir\*" . -Force
 New-Item -ItemType File -Name ".nojekyll" -Force | Out-Null
 
-# Remove leftover source dirs that should NOT be on pages branch
 Remove-Item -Recurse -Force node_modules -ErrorAction SilentlyContinue
 Remove-Item -Recurse -Force .pages-tmp -ErrorAction SilentlyContinue
 Remove-Item -Recurse -Force scripts -ErrorAction SilentlyContinue
@@ -47,20 +47,19 @@ Remove-Item -Force package.json -ErrorAction SilentlyContinue
 Remove-Item -Force package-lock.json -ErrorAction SilentlyContinue
 Remove-Item -Force README.md -ErrorAction SilentlyContinue
 
-Write-Host "===== 5. Commit and push =====" -ForegroundColor Cyan
 git add -A
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 git commit -m "Deploy: $timestamp" --allow-empty
-$token = "7fa52340044419fd2dbabf8e841be729"
-git push "https://zzwar:$token@gitee.com/zzwar/my-blog.git" pages --force
 
-Write-Host "===== 6. Cleanup =====" -ForegroundColor Cyan
+# Push to GitHub gh-pages
+git push https://github.com/zzwar2009/my-blog.git gh-pages --force
+
+Write-Host "===== 4. Cleanup =====" -ForegroundColor Cyan
 Remove-Item -Recurse -Force $tmpDir -ErrorAction SilentlyContinue
 git checkout $currentBranch
 
 Write-Host ""
 Write-Host "===================================" -ForegroundColor Green
 Write-Host "  Deploy done!" -ForegroundColor Green
-Write-Host "  Go to: https://gitee.com/zzwar/my-blog/pages" -ForegroundColor Yellow
-Write-Host "  Live at: https://zzwar.gitee.io/my-blog" -ForegroundColor Cyan
+Write-Host "  Live at: https://zzwar2009.github.io/my-blog" -ForegroundColor Cyan
 Write-Host "===================================" -ForegroundColor Green
