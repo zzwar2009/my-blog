@@ -83,7 +83,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/zzwar2009/my-blog' },
+      { icon: 'github', link: 'https://github.com/zzwar2009/myblog' },
     ],
 
     search: {
