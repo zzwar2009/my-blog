@@ -3,38 +3,38 @@ layout: home
 
 hero:
   name: "Dev Notes"
-  text: "TS · JS · React · Python"
-  tagline: 记录代码世界里的每一个「啊哈」时刻
+  text: ""
+  tagline: 记录 TypeScript、JavaScript、React、Python 的学习与实践
   image:
     src: /logo.svg
     alt: Dev Notes
   actions:
     - theme: brand
       text: 开始阅读
-      link: /posts/typescript/type-system
+      link: /posts/typescript/
     - theme: alt
-      text: 关于我
-      link: /about
+      text: GitHub
+      link: https://github.com/zzwar2009/my-blog
 
 features:
-  - icon: 🔷
-    title: TypeScript
-    details: 类型系统、泛型、高级类型工具——写出更健壮的代码。
-    link: /posts/typescript/type-system
-  - icon: 🟡
-    title: JavaScript
-    details: 异步编程、闭包、原型链——深挖 JS 底层机制。
-    link: /posts/javascript/async
-  - icon: ⚛️
-    title: React
-    details: Hooks 实战、性能优化、状态管理最佳实践。
-    link: /posts/react/hooks
-  - icon: 🐍
-    title: Python
-    details: 装饰器、asyncio、类型注解——Pythonic 编程之道。
-    link: /posts/python/decorators
-  - icon: 🎬
-    title: 视频笔记
-    details: 嵌入 B 站 / YouTube 视频，配合文字笔记一起食用。
-    link: /posts/videos/embed-demo
+  - title: TypeScript
+    details: 类型系统、泛型、条件类型、类型体操
+    link: /posts/typescript/
+  - title: JavaScript
+    details: 异步编程、闭包、ES6+、事件循环
+    link: /posts/javascript/
+  - title: React
+    details: Hooks、性能优化、状态管理、最佳实践
+    link: /posts/react/
+  - title: Python
+    details: 装饰器、asyncio、数据处理、脚本编写
+    link: /posts/python/
 ---
+
+## 最新文章
+
+- [TypeScript 类型系统基础](/posts/typescript/type-system)
+- [JavaScript 异步编程深入](/posts/javascript/async)
+- [React Hooks 实战指南](/posts/react/hooks)
+- [Python 装饰器详解](/posts/python/decorators)
+- [视频笔记与嵌入示例](/posts/videos/embed-demo)
