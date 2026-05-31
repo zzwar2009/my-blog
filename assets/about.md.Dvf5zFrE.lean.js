@@ -1,0 +1,1 @@
+import{c as a,Q as e,j as o,m as r}from"./chunks/framework.Ba5-xFyP.js";const _=JSON.parse('{"title":"关于","description":"","frontmatter":{},"headers":[],"relativePath":"about.md","filePath":"about.md"}'),s={name:"about.md"};function i(n,t,l,c,d,p){return e(),o("div",null,[...t[0]||(t[0]=[r("",7)])])}const h=a(s,[["render",i]]);export{_ as __pageData,h as default};
