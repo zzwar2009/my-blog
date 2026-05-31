@@ -3,11 +3,15 @@
 
 $ErrorActionPreference = "Stop"
 
-Write-Host "===== 1. Build =====" -ForegroundColor Cyan
+Write-Host "===== 1. Install dependencies =====" -ForegroundColor Cyan
+npm install
+if ($LASTEXITCODE -ne 0) { throw "npm install failed" }
+
+Write-Host "===== 2. Build =====" -ForegroundColor Cyan
 npm run build
 if ($LASTEXITCODE -ne 0) { throw "Build failed" }
 
-Write-Host "===== 2. Prepare pages branch =====" -ForegroundColor Cyan
+Write-Host "===== 3. Prepare pages branch =====" -ForegroundColor Cyan
 $distDir = "docs\.vitepress\dist"
 $tmpDir = ".pages-tmp"
 
@@ -25,7 +29,7 @@ if ($LASTEXITCODE -ne 0) {
 }
 git rm -rf --cached --quiet .
 
-Write-Host "===== 3. Deploy files =====" -ForegroundColor Cyan
+Write-Host "===== 4. Deploy files =====" -ForegroundColor Cyan
 Get-ChildItem -Force -ErrorAction SilentlyContinue | Where-Object { 
     $_.Name -notin @('.git', 'node_modules', '.pages-tmp')
 } | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
@@ -33,14 +37,14 @@ Get-ChildItem -Force -ErrorAction SilentlyContinue | Where-Object {
 Copy-Item -Recurse "$tmpDir\*" . -Force
 New-Item -ItemType File -Name ".nojekyll" -Force | Out-Null
 
-Write-Host "===== 4. Commit and push =====" -ForegroundColor Cyan
+Write-Host "===== 5. Commit and push =====" -ForegroundColor Cyan
 git add -A
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 git commit -m "Deploy: $timestamp" --allow-empty
 $token = "7fa52340044419fd2dbabf8e841be729"
 git push "https://zzwar:$token@gitee.com/zzwar/my-blog.git" pages --force
 
-Write-Host "===== 5. Cleanup =====" -ForegroundColor Cyan
+Write-Host "===== 6. Cleanup =====" -ForegroundColor Cyan
 Remove-Item -Recurse -Force $tmpDir -ErrorAction SilentlyContinue
 git checkout $currentBranch
 
