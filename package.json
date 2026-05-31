@@ -4,9 +4,9 @@
   "type": "module",
   "description": "My personal tech blog — TS / JS / React / Python",
   "scripts": {
-    "dev": "vitepress dev docs",
-    "build": "vitepress build docs",
-    "preview": "vitepress preview docs",
+    "dev": "npx vitepress dev docs",
+    "build": "npx vitepress build docs",
+    "preview": "npx vitepress preview docs",
     "deploy": "powershell -ExecutionPolicy Bypass -File scripts/deploy.ps1"
   },
   "devDependencies": {
