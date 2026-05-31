@@ -1,0 +1,62 @@
+/* docs/.vitepress/theme/custom.css */
+
+/* ── 主色调覆盖 ── */
+:root {
+  --vp-c-brand-1: #5b7cf6;
+  --vp-c-brand-2: #4a6ae8;
+  --vp-c-brand-3: #3a58d0;
+  --vp-c-brand-soft: rgba(91, 124, 246, 0.14);
+}
+
+/* ── 代码块字体 ── */
+:root {
+  --vp-font-family-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+
+/* ── 首页 hero 文字加大一点 ── */
+.VPHero .name {
+  font-size: clamp(2rem, 6vw, 4rem) !important;
+}
+
+/* ── 代码块：稍微圆角 ── */
+.vp-doc div[class*='language-'] {
+  border-radius: 10px;
+}
+
+/* ── 自定义容器：tip / warning / danger ── */
+.custom-block.tip {
+  border-color: var(--vp-c-brand-1);
+}
+
+/* ── 视频嵌入容器 ── */
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  margin: 1.5rem 0;
+  background: #000;
+}
+
+.video-wrapper iframe,
+.video-wrapper video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ── 文章标签徽章 ── */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  margin-right: 4px;
+}
